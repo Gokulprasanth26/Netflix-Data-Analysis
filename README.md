@@ -19,7 +19,7 @@ This project involves a comprehensive Exploratory Data Analysis (EDA) and data c
    * **List Unpacking:** Columns such as `director`, `cast`, `country`, and `listed_in` (genres) contained multiple comma-separated values. These were split into lists and exploded into individual rows to create normalized relationship tables (`title_director`, `title_cast`, `title_country`, `title_genre`).
    * **Duplicate Removal:** Identified and dropped duplicate entries created during the explosion process to maintain an accurate 1:1 mapping.
 4. **Feature Engineering:**
-   * Converted `date_added` from string format to standard Pandas `datetime64[ns]` objects.
+   * Converted `date_added` from string format to standard Pandas `datetime` objects.
    * Extracted specific temporal features: `added_year`, `added_month`, and `added_month_name`.
    * Parsed the `duration` column to extract numerical values, separating them into `movie_duration_min` for movies and `tv_seasons` for TV shows.
 
