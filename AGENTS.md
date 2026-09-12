@@ -8,9 +8,15 @@ corrections, the reason for them, and the important implementation choices.
 
 ## Scope and structure
 
-- Keep the main analysis in `notebooks/Netflix_EDA.ipynb`.
-- Keep the source in `data/netflix.csv`; never alter the original CSV.
-- Export the six README charts into `images/` from the notebook itself.
+- Keep the main submission in `notebooks/Netflix_Submission.ipynb`.
+- Keep `notebooks/Netflix_EDA.ipynb` as the secondary AI-assisted reference.
+- Preserve both notebooks' contents and saved outputs during organizational or
+  documentation changes. Do not rewrite or rerun them merely to categorize files.
+- Keep the source in `data/netflix.csv`; never alter the original CSV. Preserve
+  the identical root `netflix.csv` compatibility copy because the main submission
+  reads that public URL. The secondary notebook reads the local `data/` copy.
+- Export the six README charts into `images/` from the secondary notebook itself.
+  Attribute those figures and enhanced methods to that notebook in the README.
 - Keep setup instructions and verified direct dependencies current.
 - Prefer straightforward Pandas code and the existing libraries. Add folders,
   abstractions, or dependencies only when there is a concrete need.

@@ -1,104 +1,45 @@
-# Netflix Catalog Analysis
+# Netflix Data Analysis
 
-**An exploratory study of 8,807 movies and TV shows using Python and Pandas.**
+A beginner exploratory data analysis project exploring **8,807 Netflix movies and
+TV shows** with Python, Pandas, NumPy, Matplotlib, and Seaborn.
 
-This project turns raw catalog metadata into clean title-level and relationship
-tables, then examines content mix, recorded additions, countries, listed categories,
-ratings, contributors, and duration. The emphasis is on reproducible analysis and
-clear interpretation of what the data can support.
+**[Start here: main submission](notebooks/Netflix_Submission.ipynb)** ·
+[Secondary enhanced notebook](notebooks/Netflix_EDA.ipynb) ·
+[Dataset](data/netflix.csv)
 
-**[Explore the notebook](notebooks/Netflix_EDA.ipynb)** ·
-**[View the dataset](data/netflix.csv)** · **[Run locally](#run-locally)**
+## Choose a notebook
 
-> **Scope:** A historical snapshot with recorded addition dates through September
-> 25, 2021. This is not Netflix's current catalog. The dataset contains no viewership,
-> revenue, subscriber, or licensing-cost measures.
+| Notebook | Role | What to expect |
+|---|---|---|
+| **[Netflix_Submission.ipynb](notebooks/Netflix_Submission.ipynb)** | **Main project** | The original project submission, covering data exploration, cleaning, visualizations, observations, and recommendations. Start here when reviewing the project. |
+| [Netflix_EDA.ipynb](notebooks/Netflix_EDA.ipynb) | Secondary reference | An enhanced version developed with AI assistance, including additional validation, reusable plotting helpers, and exported figures. Retained for comparison and further learning. |
 
-## Key findings
+The main notebook is the supplied **Netflix submission project.ipynb**, renamed
+only for a consistent repository filename. Both notebooks retain their existing
+code, written explanations, and saved outputs.
 
-| Question | Verified result |
-|---|---|
-| What is the content mix? | **6,131 movies (69.6%)** and **2,676 TV shows (30.4%)**. |
-| Which year has the most recorded additions? | **2019: 2,016 titles**. The 2021 period is incomplete; 10 undated titles are excluded. |
-| Which country has the most associated titles? | **United States: 3,690**, followed by **India: 1,046**. Co-productions count in multiple countries. |
-| Which listed category is largest? | **International Movies: 2,752 titles**, followed by **Dramas: 2,427**. Category counts overlap. |
-| Which content rating is most common? | **TV-MA: 3,207 titles**. Ratings classify content; they are not viewer scores. |
-| What do duration fields show? | **98-minute median movie runtime**; **1,793 TV shows (67.0%)** have one recorded season. |
+## What the main project explores
 
-## Selected visualizations
+- The balance of movies and TV shows in the dataset.
+- Missing values and preparation of country, cast, director, genre, and date fields.
+- Content patterns across countries, genres, ratings, and years.
+- Movie runtimes, TV season counts, and potential outliers.
+- Observations and proposed business recommendations from the exploration.
 
-### Content mix
+**Tools used:** Python · Pandas · NumPy · Matplotlib · Seaborn · Jupyter Notebook
 
-Movies account for roughly seven in ten titles in the supplied snapshot.
+## Reading the results
 
-![Content mix: 6,131 movies and 2,676 TV shows](images/content_type_distribution.png)
+This is a historical catalog snapshot, with recorded addition dates through
+**September 25, 2021**. It describes the supplied dataset rather than Netflix's
+current catalog.
 
-### Recorded additions over time
-
-The largest annual count is in 2019. These are addition dates among titles present
-in this dataset; without removal history, they do not measure net catalog growth.
-The hatched 2021 bar represents a partial year.
-
-![Recorded additions from 2008 to 2021, with 2021 marked as incomplete](images/recorded_additions_by_year.png)
-
-### Countries and listed categories
-
-Each chart counts distinct titles associated with a label. A title may contribute
-to several countries or categories, so the bars are not mutually exclusive.
-Country metadata describes title associations, not viewer location or streaming availability.
-
-![Top ten countries by distinct associated titles](images/top_10_countries.png)
-
-![Top ten listed categories, led by International Movies and Dramas](images/top_10_genres.png)
-
-### Ratings and runtime
-
-TV-MA is the largest content-rating group. The movie runtime distribution has a
-98-minute median; unusual runtimes are retained and inspected in the notebook.
-
-![Titles by content rating, including unknown ratings](images/content_ratings.png)
-
-![Movie runtime distribution with a median of 98 minutes](images/movie_duration_distribution.png)
-
-## Methods and data quality
-
-- **Audit:** inspect 8,807 rows and 12 source columns, verify unique `show_id`
-  values, and summarize missingness.
-- **Clean:** work on a copy, trim whitespace, label missing descriptive metadata
-  `Unknown`, and retain missing dates as `NaT`.
-- **Repair:** transfer three misplaced `74 min`, `84 min`, and `66 min` values
-  from `rating` into the corresponding missing movie durations. Their ratings
-  become `Unknown`. The source CSV remains unchanged.
-- **Normalize relationships:** split and explode director, cast, country, and
-  category lists; remove blank/unknown tokens and duplicate title–attribute pairs.
-  Keep the title table separate to avoid inflated counts from overlapping joins.
-- **Engineer features:** derive addition year/month, movie runtime in minutes,
-  TV season count, and a year-based content-age estimate.
-- **Explore:** compare distributions, time patterns, content-type segments,
-  country–category relationships, and potential runtime outliers.
-- **Validate:** check title grain, relationship keys, join coverage, date totals,
-  percentage denominators, and separation of movie minutes from TV seasons.
-
-### Interpretation limits
-
-The raw file has 2,634 missing directors, 825 missing cast entries, and 831 missing
-country entries. Rankings exclude unknowns and may reflect uneven metadata
-coverage. Ten missing addition dates are excluded from time analyses. Fourteen
-negative addition-year minus release-year differences are retained for audit and
-excluded from age summaries.
-
-The 2021 window ends in September, and pooled month totals have unequal coverage.
-Neither supports an unqualified slowdown or seasonality claim. A one-season TV
-show entry does not establish cancellation, completion, or Netflix exclusivity.
-
-## Business implications
-
-Use this analysis as a catalog inventory baseline. The content mix and the
-country/category rankings suggest segments to examine further. Assessing a
-content-investment opportunity requires market-specific availability, engagement,
-retention, and licensing costs. Catalog counts alone cannot establish demand or
-profitability. Compare complete periods and obtain removal history before
-evaluating catalog growth.
+The submission's recommendations should be read as ideas for further investigation.
+The dataset has no viewership, revenue, subscriber, or licensing-cost measures, so
+catalog counts alone cannot establish popularity, retention, or profitability.
+The 2021 period is incomplete; a single recorded TV season does not establish that
+a show was cancelled. Country and genre counts may overlap because one title can
+have multiple labels.
 
 ## Repository structure
 
@@ -108,23 +49,22 @@ Netflix-Data-Analysis/
 ├── AGENTS.md
 ├── requirements.txt
 ├── .gitignore
+├── netflix.csv                     # Original URL used by the main submission
 ├── data/
-│   └── netflix.csv
+│   └── netflix.csv                 # Local data used by the secondary notebook
 ├── notebooks/
-│   └── Netflix_EDA.ipynb
-└── images/
-    ├── content_type_distribution.png
-    ├── recorded_additions_by_year.png
-    ├── top_10_countries.png
-    ├── top_10_genres.png
-    ├── content_ratings.png
-    └── movie_duration_distribution.png
+│   ├── Netflix_Submission.ipynb     # MAIN: original project submission
+│   └── Netflix_EDA.ipynb            # SECONDARY: AI-assisted enhanced analysis
+└── images/                         # Six figures from the secondary notebook
 ```
 
-## Run locally
+The two CSV files are identical. The root copy preserves the data URL already
+used by the main submission; the `data/` copy preserves the secondary notebook's
+local file path. This lets both notebooks keep their existing code.
 
-Use **Python 3.12**. Direct dependencies in `requirements.txt` are pinned to the
-versions used for verification.
+## Open and run locally
+
+Both notebooks can be viewed on GitHub with their saved outputs. To work locally:
 
 ```bash
 git clone https://github.com/Gokulprasanth26/Netflix-Data-Analysis.git
@@ -144,34 +84,68 @@ Activate the environment:
 source .venv/bin/activate
 ```
 
-Install dependencies and open JupyterLab:
+Install the project dependencies and open JupyterLab:
 
 ```bash
 python -m pip install -r requirements.txt
 python -m jupyterlab
 ```
 
-Open `notebooks/Netflix_EDA.ipynb` and select **Restart Kernel and Run All Cells**.
-The notebook reads the included CSV and regenerates all six figures in `images/`;
-it does not need to download the data.
+- **Main submission:** open `notebooks/Netflix_Submission.ipynb`. It loads the
+  CSV from this repository's public GitHub URL, so running it requires internet
+  access.
+- **Secondary reference:** open `notebooks/Netflix_EDA.ipynb`. It reads
+  `data/netflix.csv` locally and regenerates the six figures in `images/` when run.
 
-For command-line execution from the repository root:
+Run cells in order using **Restart Kernel and Run All Cells**. The pinned
+`requirements.txt` describes the Python 3.12 environment used for the enhanced
+notebook. The main submission's saved metadata records Python 3.10.11; its
+original package versions were not recorded, so these pins do not reproduce that
+original environment exactly.
 
-```bash
-python -m nbconvert --execute --to notebook --inplace notebooks/Netflix_EDA.ipynb --ExecutePreprocessor.timeout=120
-```
+## Secondary notebook: findings and figures
+
+The exported figures below belong to the **AI-assisted enhanced notebook**.
+They are supporting reference material; the main submission's own charts remain
+inside its notebook.
+
+<details>
+<summary>View enhanced findings and six supporting charts</summary>
+
+| Question | Result reported in the enhanced analysis |
+|---|---|
+| Content mix | 6,131 movies (69.6%) and 2,676 TV shows (30.4%). |
+| Most recorded additions | 2019: 2,016 titles. Ten undated titles are excluded; 2021 is incomplete. |
+| Most associated titles by country | United States: 3,690; India: 1,046. Co-productions count in multiple countries. |
+| Largest listed category | International Movies: 2,752 titles; Dramas: 2,427. Category counts overlap. |
+| Most common content rating | TV-MA: 3,207 titles. Content ratings are not viewer scores. |
+| Duration | Median movie runtime: 98 minutes. 1,793 TV shows (67.0%) have one recorded season. |
+
+The enhanced workflow adds checks for title keys, relationship-table joins,
+missing metadata, percentage denominators, date coverage, and separate duration
+units for movies and TV shows. It also handles three runtime values stored in
+the rating field while preserving the source CSV.
+
+![Content mix: 6,131 movies and 2,676 TV shows](images/content_type_distribution.png)
+
+![Recorded additions by year, with 2021 marked as incomplete](images/recorded_additions_by_year.png)
+
+![Top ten countries by associated titles; countries can overlap](images/top_10_countries.png)
+
+![Top ten listed categories; categories can overlap](images/top_10_genres.png)
+
+![Titles by content rating](images/content_ratings.png)
+
+![Movie runtime distribution with a 98-minute median](images/movie_duration_distribution.png)
+
+</details>
 
 ## Data provenance
 
-The included CSV is preserved byte-for-byte from this repository's original
-dataset at commit [`5e4a68f`](https://github.com/Gokulprasanth26/Netflix-Data-Analysis/tree/5e4a68f).
+The CSV is preserved byte-for-byte from this repository's original dataset at
+commit [`5e4a68f`](https://github.com/Gokulprasanth26/Netflix-Data-Analysis/tree/5e4a68f).
 The upstream publisher, collection method, and redistribution license were not
-documented in the original repository; no upstream attribution or license is assumed.
-
-## Skills demonstrated
-
-Python · Pandas · NumPy · Data cleaning · Relationship-table modeling ·
-Exploratory data analysis · Matplotlib · Seaborn · Data validation ·
-Communicating analytical limitations
+documented in the original repository; no upstream attribution or license is
+assumed.
 
 **Author:** [Gokul Prasanth](https://github.com/Gokulprasanth26)
